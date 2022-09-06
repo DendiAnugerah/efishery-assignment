@@ -1,5 +1,7 @@
 package main
 
+import "efishery-assignment/infrastructure/router"
+
 // Temen-temen sudah dapat tema ya, temanya e-commerce. Tugasnya bikin REST API yang isinya:
 
 // 1. Detail produk -> nama , foto, harga, deskripsi
@@ -16,5 +18,5 @@ package main
 // 5. Akan ada sesi speeddating dengan eFisherian dan User
 
 func main() {
-
+	router.Init()
 }

@@ -5,6 +5,7 @@ import (
 	"efishery-assignment/model"
 	"efishery-assignment/repository"
 	categoryusecase "efishery-assignment/usecase/category"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
@@ -43,5 +44,44 @@ func (controller *CategoryController) GetAll(c echo.Context) (err error) {
 		return
 	}
 	c.JSON(200, categoryI)
+	return
+}
+
+func (controller *CategoryController) GetById(c echo.Context) (err error) {
+	id, _ := strconv.Atoi(c.Param("id_category"))
+	categoryI, err := controller.Interact.GetById(id)
+
+	if err != nil {
+		c.JSON(500, err)
+		return
+	}
+	c.JSON(200, categoryI)
+	return
+}
+
+func (controller *CategoryController) UpdateCategory(c echo.Context) (err error) {
+	id, _ := strconv.Atoi(c.Param("id_category"))
+	NewCategory := model.Category{Id_category: id}
+	NewCategory, err = controller.Interact.Update(NewCategory)
+
+	if err != nil {
+		c.JSON(500, err)
+		return
+	}
+	c.JSON(200, NewCategory)
+	return
+}
+
+func (controller *CategoryController) DeleteCategory(c echo.Context) (err error) {
+	id, _ := strconv.Atoi(c.Param("id_category"))
+	NewCategory := model.Category{Id_category: id}
+
+	err = controller.Interact.Delete(NewCategory)
+	if err != nil {
+		c.JSON(500, err)
+		return
+	}
+
+	c.JSON(200, NewCategory)
 	return
 }
