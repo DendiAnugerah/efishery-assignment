@@ -48,7 +48,7 @@ func (controller *CategoryController) GetAll(c echo.Context) (err error) {
 }
 
 func (controller *CategoryController) GetById(c echo.Context) (err error) {
-	id, _ := strconv.Atoi(c.Param("id_category"))
+	id, _ := strconv.Atoi(c.Param("id"))
 	categoryI, err := controller.Interact.GetById(id)
 
 	if err != nil {
@@ -60,7 +60,7 @@ func (controller *CategoryController) GetById(c echo.Context) (err error) {
 }
 
 func (controller *CategoryController) UpdateCategory(c echo.Context) (err error) {
-	id, _ := strconv.Atoi(c.Param("id_category"))
+	id, _ := strconv.Atoi(c.Param("id"))
 	NewCategory := model.Category{Id_category: id}
 	NewCategory, err = controller.Interact.Update(NewCategory)
 
@@ -73,7 +73,7 @@ func (controller *CategoryController) UpdateCategory(c echo.Context) (err error)
 }
 
 func (controller *CategoryController) DeleteCategory(c echo.Context) (err error) {
-	id, _ := strconv.Atoi(c.Param("id_category"))
+	id, _ := strconv.Atoi(c.Param("id"))
 	NewCategory := model.Category{Id_category: id}
 
 	err = controller.Interact.Delete(NewCategory)
@@ -82,6 +82,7 @@ func (controller *CategoryController) DeleteCategory(c echo.Context) (err error)
 		return
 	}
 
-	c.JSON(200, NewCategory)
+	type M map[string]interface{}
+	c.JSON(200, M{"message": "Category deleted"})
 	return
 }
